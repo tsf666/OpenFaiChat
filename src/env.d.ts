@@ -1,0 +1,18 @@
+/// <reference types="astro/client" />
+
+// .env配置文件
+interface ImportMetaEnv {
+  readonly GEMINI_API_KEY: string
+  readonly HTTPS_PROXY: string
+  readonly API_BASE_URL: string
+  readonly HEAD_SCRIPTS: string
+  readonly PUBLIC_SECRET_KEY: string
+  readonly SITE_PASSWORD: string
+  readonly OPENAI_API_MODEL: string
+  readonly GEMINI_MODEL_NAME: string
+  readonly PUBLIC_MAX_HISTORY_MESSAGES: string
+}
+
+interface ImportMeta {
+  readonly env: ImportMetaEnv
+}
