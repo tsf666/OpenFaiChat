@@ -1,0 +1,42 @@
+# build output
+dist/
+.vercel/
+.netlify/
+
+# Author's personal directory
+old
+src/assets
+public/favicon.svg
+public/favicon浏览器页签图标.svg00
+
+# generated types
+.astro/
+
+# dependencies
+node_modules/
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# environment variables
+# .gitignore已经排除了.env文件中所写的内容
+# 已经排除了.env里面所写的api key及proxy地址
+.env
+.env.production
+
+# Local
+*.local
+
+# macOS-specific files
+**/.DS_Store
+
+# jetbrains setting folder
+.idea/
+
+# vscode
+.vscode/
+
+.env*.local

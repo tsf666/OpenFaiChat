@@ -1,0 +1,148 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --color-slate-op-15: rgba(148, 163, 184, 0.15);
+  --color-slate-op-20: rgba(148, 163, 184, 0.20);
+}
+
+:root {
+  --c-bg: #fbfbfb;
+}
+html.dark {
+  --c-bg: #212129;
+}
+
+body {
+  background-color: var(--c-bg);
+
+}
+
+
+@utility col-fcc {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+
+@utility base-link {
+  @apply transition-colors cursor-pointer;
+  &:hover {
+    @apply text-slate-500; 
+  }
+}
+
+
+@utility fb { @apply flex justify-between; }
+@utility fi { @apply flex items-center; }
+@utility fc { @apply flex justify-center; }
+@utility fcc { @apply flex justify-center items-center; }
+
+
+@utility op-30 { opacity: 0.3; }
+@utility op-50 { opacity: 0.5; }
+@utility op-60 { opacity: 0.6; }
+@utility op-70 { opacity: 0.7; }
+@utility op-90 { opacity: 0.9; }
+
+
+@utility base-focus {
+  outline: none;
+  box-shadow: none;
+  &:focus {
+    background-color: var(--color-slate-op-20);
+  }
+}
+
+
+@utility head-desc {
+  @apply mt-2 text-[15px] flex flex-wrap gap-2 opacity-70;
+
+  color: var(--c-fg);
+}
+
+
+
+@layer utilities {
+
+
+  .gpt-password-input, .gen-textarea {
+    @apply rounded-sm ring-0 outline-none base-focus;
+    background-color: var(--color-slate-op-15);
+  }
+
+  .gen-textarea {
+    @apply w-full px-3 py-3 min-h-[3rem] max-h-[9rem] resize-none pl-10;
+    &::placeholder { opacity: 0.5; }
+  }
+
+  .gpt-password-input {
+    @apply px-4 py-3 h-12;
+  }
+
+
+  .gpt-title {
+    @apply text-2xl font-extrabold mr-1;
+    color: var(--c-fg);
+  }
+
+  .gpt-subtitle {
+    @apply text-2xl font-extrabold;
+    background-image: linear-gradient(to right, #38bdf8, #059669);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  .gpt-password-submit {
+    @apply fcc h-12 w-12 cursor-pointer transition-colors rounded-sm;
+
+    background-color: rgba(148, 163, 184, 0.2); 
+    color: var(--c-fg);
+
+    &:hover {
+
+      background-color: rgba(148, 163, 184, 0.5);
+    }
+
+    .i-carbon-arrow-right {
+      display: inline-block;
+      width: 1.2em;
+      height: 1.2em;
+
+      background-color: currentColor;
+      -webkit-mask-image: url("https://api.iconify.design/carbon:arrow-right.svg");
+      mask-image: url("https://api.iconify.design/carbon:arrow-right.svg");
+      -webkit-mask-repeat: no-repeat;
+      mask-repeat: no-repeat;
+      -webkit-mask-size: 100% 100%;
+      mask-size: 100% 100%;
+    }
+    
+  }
+  
+
+
+  .b-slate-link {
+    @apply border-b transition-all border-transparent hover:border-dashed hover:border-slate-400;
+  }
+
+
+  .prose {
+    @apply max-w-none transition-colors duration-300;
+    
+
+    --tw-prose-body: var(--c-fg);
+    --tw-prose-headings: var(--c-fg);
+    --tw-prose-links: #38bdf8; 
+    --tw-prose-bold: var(--c-fg);
+    --tw-prose-code: var(--c-fg);
+    --tw-prose-quotes: var(--c-fg);
+    
+
+  }
+
+}
