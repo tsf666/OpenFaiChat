@@ -23,6 +23,12 @@ export default () => {
   createEffect(() => (isStick() && smoothToBottom()))
 
   onMount(() => {
+
+    const draft = localStorage.getItem('temp_draft')
+    if (draft && inputRef) {
+      inputRef.value = draft
+    }
+
     let lastPostion = window.scrollY
     window.addEventListener('scroll', () => {
       const nowPostion = window.scrollY
@@ -62,6 +68,19 @@ export default () => {
     ])
     requestWithLatestMessage()
     instantToBottom()
+
+    localStorage.removeItem('temp_draft')
+  }
+
+  const handleEditMessage = (content: string, index: number) => {
+    if (inputRef) {
+      inputRef.value = content
+      inputRef.style.height = 'auto'
+      inputRef.style.height = `${inputRef.scrollHeight}px`
+      inputRef.focus()
+    }
+    setMessageList(prev => prev.slice(0, index))
+    localStorage.setItem('temp_draft', content)
   }
 
   const smoothToBottom = useThrottleFn(() => {
@@ -186,7 +205,7 @@ export default () => {
       const roleName = msg.role === 'user' ? 'User' : 'Assistant'
       return `### ${roleName}:\n${msg.content}`
     }).join('\n\n---\n\n')
-    
+
     if (navigator.clipboard && content) {
       navigator.clipboard.writeText(content)
     }
@@ -224,6 +243,11 @@ export default () => {
             showRetry={() => (message().role === 'assistant' && index === messageList().length - 1)}
             onRetry={retryLastFetch}
             onCopyAll={handleCopyAll}
+            showEdit={() => (
+              message().role === 'user' &&
+              (index === messageList().length - 1 || index === messageList().length - 2)
+            )}
+            onEdit={() => handleEditMessage(message().content, index)}
           />
         )}
       </Index>

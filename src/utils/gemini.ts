@@ -6,6 +6,9 @@ export interface ChatMessage {
 }
 
 const apiKey = process.env.GEMINI_API_KEY || import.meta.env.GEMINI_API_KEY;
+const apiPass = process.env.API_PASS || import.meta.env.API_PASS || '';
+const modelName = (import.meta.env.GEMINI_MODEL_NAME) || 'gemini-2.5-flash'
+
 let apiBaseUrl = (process.env.API_BASE_URL || import.meta.env.API_BASE_URL || '')
   .trim()
   .replace(/\/$/, '');
@@ -18,21 +21,32 @@ if (apiBaseUrl && !apiBaseUrl.startsWith('http')) {
 
 const genAI = new GoogleGenerativeAI(apiKey);
 
+export const getModel = () => {
+  const fetchOptions: any = {};
+
+  if (apiBaseUrl) {
+    fetchOptions.baseUrl = apiBaseUrl;
+
+    if (apiPass) {
+      fetchOptions.customHeaders = {
+        'x-auth-code': apiPass
+      };
+    }
+  }
+
+  return genAI.getGenerativeModel(
+    { model: modelName },
+    apiBaseUrl ? fetchOptions : undefined
+  );
+};
+
 
 export const startChatAndSendMessageStream = async (
   history: ChatMessage[],
   newMessage: { parts: { text: string }[] }
 ) => {
 
-  const model = genAI.getGenerativeModel(
-    {
-      model: 'gemini-2.5-flash',
-    },
-
-    apiBaseUrl ? { baseUrl: apiBaseUrl } : undefined
-  );
-
-
+  const model = getModel();
 
   const chat = model.startChat({
 
